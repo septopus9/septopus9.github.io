@@ -6,42 +6,68 @@
   <title>Sushanta Halder | Java Developer</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #fdfdfd;
+      --text: #333;
+      --primary: #64ffda;
+      --secondary: #0a192f;
+      --card: #f1f5f9;
+    }
+
+    body.dark-mode {
+      --bg: #0a192f;
+      --text: #fdfdfd;
+      --primary: #64ffda;
+      --card: #112240;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #fdfdfd;
-      color: #333;
+      background-color: var(--bg);
+      color: var(--text);
       line-height: 1.6;
+      transition: background 0.4s, color 0.4s;
     }
 
     header {
-      background-color: #0a192f;
-      color: #fff;
+      background-color: var(--secondary);
+      color: var(--text);
       padding: 2rem 1rem;
       text-align: center;
+      position: relative;
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+    #typed-title {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+      height: 1.5rem;
     }
 
-    header p {
-      font-size: 1.2rem;
-      color: #a8b2d1;
+    .dark-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-weight: bold;
     }
 
     nav {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     nav a {
-      color: #64ffda;
+      color: var(--primary);
       margin: 0 1rem;
       text-decoration: none;
       font-weight: 600;
@@ -55,12 +81,20 @@
       max-width: 900px;
       margin: 3rem auto;
       padding: 0 1rem;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease-out;
+    }
+
+    section.reveal {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h2 {
       font-size: 2rem;
-      color: #0a192f;
-      border-bottom: 2px solid #64ffda;
+      color: var(--primary);
+      border-bottom: 2px solid var(--primary);
       padding-bottom: 0.3rem;
       margin-bottom: 1rem;
     }
@@ -72,27 +106,28 @@
     ul li {
       margin-bottom: 1.2rem;
       padding: 1rem;
-      background-color: #f1f5f9;
-      border-left: 4px solid #64ffda;
+      background-color: var(--card);
+      border-left: 4px solid var(--primary);
+      transition: transform 0.3s;
+    }
+
+    ul li:hover {
+      transform: scale(1.02);
     }
 
     a {
-      color: #007acc;
+      color: var(--primary);
     }
 
     footer {
       text-align: center;
-      background-color: #0a192f;
+      background-color: var(--secondary);
       color: #a8b2d1;
       padding: 1rem;
       margin-top: 3rem;
     }
 
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-
       nav a {
         display: block;
         margin: 0.5rem 0;
@@ -103,8 +138,9 @@
 <body>
 
   <header>
+    <button class="dark-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
     <h1>Sushanta Halder</h1>
-    <p>Java Developer | Spring Boot | Hibernate | MySQL | Thymeleaf</p>
+    <div id="typed-title"></div>
     <nav>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
@@ -115,35 +151,26 @@
 
   <section id="about">
     <h2>About Me</h2>
-    <p>I’m a dedicated Java developer with hands-on experience in backend development using Spring Boot, Hibernate, and MySQL. I enjoy solving real-world problems through efficient and secure code. Currently building projects like inventory systems and exploring full-stack development with Thymeleaf and React.</p>
+    <p>I’m a passionate Java developer with expertise in Spring Boot, Hibernate, and MySQL. I focus on building efficient and secure backend systems and full-stack apps with Thymeleaf. Currently exploring React and Flutter for frontend work.</p>
   </section>
 
   <section id="projects">
     <h2>Projects</h2>
     <ul>
-      <li>
-        <strong>College Directory System</strong><br/>
-        Role-based web app for managing college interactions. Uses Spring Boot, JWT, Thymeleaf, and MySQL.
-      </li>
-      <li>
-        <strong>FIFO Fabric Inventory System</strong><br/>
-        Tracks fabric flow using FIFO logic. Built with Java Spring Boot and Thymeleaf. Designed for textile companies.
-      </li>
-      <li>
-        <strong>Music Streaming App</strong><br/>
-        Under development. Java backend with Flutter frontend, aiming to provide personalized music playlists.
-      </li>
+      <li><strong>College Directory System:</strong> Role-based portal for students, faculty, and admins. Uses Spring Boot, JWT, Thymeleaf, and MySQL.</li>
+      <li><strong>FIFO Fabric Inventory System:</strong> Manages fabric tracking across factories using FIFO logic. Built with Spring Boot and Thymeleaf.</li>
+      <li><strong>Music Streaming App:</strong> Java + Flutter app for streaming and playlist management. In progress.</li>
     </ul>
   </section>
 
   <section id="skills">
     <h2>Skills</h2>
     <ul>
-      <li>Java, Spring Boot, Spring Security, Spring MVC</li>
+      <li>Java, Spring Boot, Security, MVC</li>
       <li>Hibernate, JPA, MySQL, Oracle</li>
-      <li>RESTful APIs, JWT, Docker, Git</li>
-      <li>Thymeleaf, HTML/CSS, JavaScript (basic)</li>
-      <li>Tools: IntelliJ, Eclipse, Swagger, Postman</li>
+      <li>REST APIs, JWT, Docker, Git</li>
+      <li>Thymeleaf, HTML/CSS, JS (basic)</li>
+      <li>Tools: IntelliJ, Swagger, Postman</li>
     </ul>
   </section>
 
@@ -157,6 +184,40 @@
   <footer>
     &copy; 2025 Sushanta Halder. All rights reserved.
   </footer>
+
+  <script>
+    // Reveal sections on scroll
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("reveal");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    // Typing effect
+    const titleText = "Java Developer | Spring Boot | Full Stack Enthusiast";
+    let index = 0;
+    const typedTitle = document.getElementById("typed-title");
+    function type() {
+      if (index < titleText.length) {
+        typedTitle.textContent += titleText.charAt(index);
+        index++;
+        setTimeout(type, 50);
+      }
+    }
+    type();
+
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
 
 </body>
 </html>
